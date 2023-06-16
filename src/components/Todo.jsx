@@ -3,9 +3,9 @@ import * as React from 'react';
 import { Card, CardContent, Container,IconButton, Typography, } from '@mui/material';
 import { Check, Delete, Edit, } from '@mui/icons-material';
 
-const Todo = ({ title, checkTodo, id, editTodo, deleteTodo, completed}) => {
-    const markComplete =() => checkTodo(id);
-    const delTodo = () => deleteTodo(id);
+const Todo = ({ title, checkTodo, id, editHandler, deleteTodo, completed,}) => {
+    // const markComplete =() => checkTodo(id);
+    // const delTodo = () => deleteTodo(id);
 
     //Todostyle having text decoration of  line through
     const todoStyle = completed ? { textDecoration : "line-through"}: {textDecoration: 'none'}
@@ -19,14 +19,16 @@ const Todo = ({ title, checkTodo, id, editTodo, deleteTodo, completed}) => {
                 >
                     <CardContent>
                         <Typography variant='h5' component={"h2"} sx={todoStyle}>
-                            <IconButton onClick={markComplete} >
+                            <IconButton onClick={() => checkTodo(id)} >
                                 <Check sx={{color:'green'}} />
                             </IconButton>
                             {title}
-                            <IconButton sx={{float:'right'}}>
+                            <IconButton sx={{float:'right'}} 
+                            onClick={() => editHandler(id, title)}
+                            >
                                 <Edit />
                             </IconButton>
-                            <IconButton sx={{float:'right'}} onClick={delTodo}>
+                            <IconButton sx={{float:'right'}} onClick={() => deleteTodo(id)}>
                                 <Delete sx={{color:'red'}} />
                             </IconButton>
                         </Typography> 

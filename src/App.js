@@ -4,8 +4,10 @@ import Todos from "./components/Todos";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
 import {v4} from 'uuid';
+// import Chatgptcode from "./Chatgptcode";
 
 function App() {
+  const [updateTodo, setUpdateTodo] = useState();
   const [todos, setTodos] = useState([]);
 
   // Check Todo
@@ -30,27 +32,19 @@ function App() {
       completed: false,
     }
     setTodos([...todos,newTodo]);
-
   };
-  // Edit TODO
-  // function editTodo(todo) {
-  //   setShowEditForm(true);
-  //   setCurrentTodo({
-  //     id: todo.id,
-  //     title: todo.title,
-  //   });
-  // }
-  // Update TODO
-  // const updateTodo =(e)=>{
-  //   e.preventDefault();
-  //   let newTitle=currentTodo.title;
-  //   currentTodo.title==='' ||!newTitle ?alert('please fill in the form') :setTodos([...todos]);
+  const editHandler = (id, title ) => {
+ deleteTodo(id);
+ setUpdateTodo(title);
+  };
 
   return (
     <Box>
       <Header />
-      <Todos addTodo={addTodo} />
-      <TodoList todos={todos} checkTodo={checkTodo} deleteTodo={deleteTodo} />
+      <Todos addTodo={addTodo} updateTodo={updateTodo} />
+      <TodoList todos={todos} checkTodo={checkTodo} deleteTodo={deleteTodo} editHandler={editHandler} />
+
+      {/* <Chatgptcode/> */}
     </Box>
   );
 }

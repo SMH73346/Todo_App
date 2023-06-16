@@ -1,17 +1,25 @@
 import * as React from 'react';
-
 import { Button, FormControl, Grid, TextField } from '@mui/material';
 import { Add, } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 
-const Todos = ({addTodo}) => {
+const Todos = ({addTodo,updateTodo}) => {
     const [text, setText] = useState("");
     const handleSubmit = (e) =>{
         (e).preventDefault();
         addTodo(text);
         setText("");
-
     }
+    useEffect(() => {
+       
+        // console.log(updateTodo, 'Hussain')
+        if (updateTodo ) {
+          setText(updateTodo);
+        
+      }
+    }, [ updateTodo])
+    
+
  
     return (
         <Grid
