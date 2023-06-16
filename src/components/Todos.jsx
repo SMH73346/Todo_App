@@ -1,9 +1,18 @@
 import * as React from 'react';
 
-import { Box, Button, Divider, Grid, TextField } from '@mui/material';
+import { Button, FormControl, Grid, TextField } from '@mui/material';
 import { Add, } from '@mui/icons-material';
+import { useState } from 'react';
 
-export default function CustomizedInputBase() {
+const Todos = ({addTodo}) => {
+    const [text, setText] = useState("");
+    const handleSubmit = (e) =>{
+        (e).preventDefault();
+        addTodo(text);
+        setText("");
+
+    }
+ 
     return (
         <Grid
             container
@@ -12,16 +21,16 @@ export default function CustomizedInputBase() {
             <Grid item lg={4}>
             </Grid>
             <Grid item lg={4} >
-                <Box sx={{ display: "flex", justifyContent: "center", alignItems: 'center', border: '1px solid grey', borderRadius:1,padding: '5px', }}>
-                    <TextField fullWidth label="Enter Your Text" sx={{ marginRight: '5px' }}
-                        variant="standard" />
+                <form onSubmit={handleSubmit}>
+                    <FormControl sx={{ display: "flex", justifyContent: "center", alignItems: 'center', border: '1px solid grey', borderRadius: 1, padding: '5px', }}>
+                        <TextField fullWidth label="Enter Your Text" required={true} sx={{ marginRight: '5px' }}
+                            variant="standard" value={text} onChange={(e)=>setText(e.target.value)} />
 
-                    <Divider sx={{ height: 50, m: 0.5 }} orientation="vertical" />
-
-                    <Button variant="contained" sx={{ height: 57,}}>
-                        <Add />
-                    </Button>
-                </Box>
+                        <Button variant="contained" fullWidth sx={{ marginTop: 1, }} type='submit'>
+                            <Add />
+                        </Button>
+                    </FormControl>
+                </form>
             </Grid>
             <Grid item lg={4}></Grid>
 
@@ -29,3 +38,4 @@ export default function CustomizedInputBase() {
 
     );
 }
+export default Todos

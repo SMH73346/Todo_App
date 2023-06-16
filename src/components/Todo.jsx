@@ -1,44 +1,41 @@
 import * as React from 'react';
 
-import { Box, Button, Divider, Grid, TextField } from '@mui/material';
-import { Add, } from '@mui/icons-material';
+import { Card, CardContent, Container,IconButton, Typography, } from '@mui/material';
+import { Check, Delete, Edit, } from '@mui/icons-material';
 
-export default function CustomizedInputBase() {
+const Todo = ({ title, checkTodo, id, editTodo, deleteTodo, completed}) => {
+    const markComplete =() => checkTodo(id);
+    const delTodo = () => deleteTodo(id);
+
+    //Todostyle having text decoration of  line through
+    const todoStyle = completed ? { textDecoration : "line-through"}: {textDecoration: 'none'}
+
     return (
-        <Grid
-            container
-            marginTop={"20px"}
-        >
-            <Grid item lg={4}>
-            </Grid>
-            <Grid item lg={4} >
-            <Demo>
-            <List dense={dense}>
-              {generate(
-                <ListItem
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
+        <>
+            <Container>
+                <Card 
+                variant='outlined'
+                sx={{marginTop:'15px', background:"Lightgray"}}
                 >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </Demo>
-            </Grid>
-            <Grid item lg={4}></Grid>
+                    <CardContent>
+                        <Typography variant='h5' component={"h2"} sx={todoStyle}>
+                            <IconButton onClick={markComplete} >
+                                <Check sx={{color:'green'}} />
+                            </IconButton>
+                            {title}
+                            <IconButton sx={{float:'right'}}>
+                                <Edit />
+                            </IconButton>
+                            <IconButton sx={{float:'right'}} onClick={delTodo}>
+                                <Delete sx={{color:'red'}} />
+                            </IconButton>
+                        </Typography> 
+                    </CardContent>
+                </Card> 
+            </Container>
 
-        </Grid>
-
-    );
+        </>
+    )
 }
+
+export default Todo
